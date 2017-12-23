@@ -5,7 +5,7 @@ FROM ubuntu:xenial
 # Add some basic utilities 
 #
 RUN apt-get update \
-  && apt-get -y install git tcl wget unzip default-jre vim zlib1g-dev libbz2-dev liblzma-dev
+  && apt-get -y install git tcl wget unzip default-jre vim zlib1g-dev libbz2-dev liblzma-dev python
 
 #
 # Create an unpriviledged user named 'bioinfo'
@@ -38,9 +38,9 @@ RUN wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.8.2/sratoolkit.2.8.2-ubunt
   && mv sratoolkit.2.8.2-ubuntu64 /usr/local/sratoolkit.2.8.2 
 
 # Install trimmomatic
-RUN wget wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.36.zip \
+RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.36.zip \
   && unzip Trimmomatic-0.36.zip \
-  && mv mv Trimmomatic-0.36 /usr/local
+  && mv Trimmomatic-0.36 /usr/local
 
 # Install hisat2
 RUN wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip \
