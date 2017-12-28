@@ -28,7 +28,7 @@ perl -pi -e "s/GCA_002793175.1_ASM279317v1_genomic/$BASENAME/" nextflow.config
 echo "Copying reference genome files. This may take awhile..."
 iget -r reference .
 
-
 # Run the workflow
+source ~/.bashrc
 module add trimmomatic
 nextflow run SRA2GEV.nf -profile standard
