@@ -33,7 +33,8 @@ RUN apt-get install -y lua5.2 liblua5.2-dev libtool-bin lua-posix lua-filesystem
 #
 
 # Install SRAToolkit v2.8.2
-RUN wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.8.2/sratoolkit.2.8.2-ubuntu64.tar.gz \
+RUN apt-get install -y curl \
+  && wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.8.2/sratoolkit.2.8.2-ubuntu64.tar.gz \
   && tar -zxvf sratoolkit.2.8.2-ubuntu64.tar.gz \
   && mv sratoolkit.2.8.2-ubuntu64 /usr/local/sratoolkit.2.8.2 
 
@@ -60,13 +61,37 @@ RUN wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-1.3.3b.Linux_x86_64.
   && tar -zxvf stringtie-1.3.3b.Linux_x86_64.tar.gz \
   && mv stringtie-1.3.3b.Linux_x86_64 /usr/local/stringtie-1.3.3b 
    
-
 # Add the module files for all of the installed tools
 ADD modulefiles/. /usr/local/modulefiles/Linux
 
-#
-# Now setup the GEV workflow as the bioinfo user
-#
+# Install Nextflow
+RUN wget -qO- get.nextflow.io | bash \
+  && mv nextflow /usr/local/bin \
+  && chmod 755 /usr/local/bin/nextflow \
+  && rm -rf ~/.nextflow
+
+# Install IRODs
+ADD scripts/. /usr/local/share
+RUN apt-get -y install libfuse2 expect \
+  && wget ftp://ftp.renci.org/pub/irods/releases/4.1.11/ubuntu14/irods-icommands-4.1.11-ubuntu14-x86_64.deb \
+  && dpkg -i irods-icommands-4.1.11-ubuntu14-x86_64.deb \
+  && chmod 755 /usr/local/share/*
+
+# Setup tini as our entrypoint
+ENV TINI_VERSION v0.16.1
+RUN set -x \
+    && curl -fSL "https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini" -o /usr/local/bin/tini \
+    && curl -fSL "https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini.asc" -o /usr/local/bin/tini.asc \
+    && export GNUPGHOME="$(mktemp -d)" \
+    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEACA59A84159D7001A4E5 \
+    && gpg --batch --verify /usr/local/bin/tini.asc /usr/local/bin/tini \
+    && rm -r "$GNUPGHOME" /usr/local/bin/tini.asc \
+    && chmod +x /usr/local/bin/tini
+
 USER bioinfo
 WORKDIR /home/bioinfo
-RUN git clone https://github.com/spficklin/SRA2GEV.git 
+RUN nextflow
+
+ENTRYPOINT ["/usr/local/bin/tini", "--"]
+
+CMD ["/usr/local/share/entrypoint.sh"]
