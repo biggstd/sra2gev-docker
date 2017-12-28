@@ -90,7 +90,8 @@ RUN set -x \
 
 USER bioinfo
 WORKDIR /home/bioinfo
-RUN nextflow
+RUN nextflow \
+  && git clone https://github.com/spficklin/SRA2GEV.git
 
 ENTRYPOINT ["/usr/local/bin/tini", "--"]
 
