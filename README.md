@@ -3,6 +3,13 @@ The sra2gev-docker package contains the necessary components to build a Docker i
 
 This image is meant to be used for development and testing purposes with small datasets.
 
+## Pull this Image from DockerHub
+You can pull an existing image from DockerHub using this command:
+
+```bash
+docker pull systemsgenetics/sra2gev-docker
+```
+
 ## Build the Docker Image
 To build the image, first clone it and then inside of the project directory build the image with this command
 
