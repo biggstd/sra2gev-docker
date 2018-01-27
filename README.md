@@ -28,6 +28,7 @@ Where:
 - {irods_port}: the port number for the iRODs server (usually 1247)
 - {irods_zone}: the iRODs zone name
 - {irods_user}: the iRODs user name
+- {exp_id}: the full path within the iRODs zone where the experiment files are located.
 
 When the workflow begins you will be asked for your iRODs password.  The image will then connect to iRODs, download the input files and execute the workflow.  
 
