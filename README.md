@@ -41,7 +41,29 @@ docker run -u 0 -it sra2gev-docker /bin/bash
 ```
 
 ## Run the Container Automatically with iRODs
-To execute the **sra2gev** workflow automatically you must have the sra2gev input files already available on an iRODs server.  These files include a directory named **refrence** with a prepared reference genome, the **SRA_IDs.txt** file containing the the list of SRA IDs that should be used by the workflow, and a **basename.txt** file that contains the basename used to name all of the files in the reference folder.  These files must be stored in a directory whose name serves as the experiment ID.  To execute the workflow use the following command:
+To execute the **sra2gev** workflow automatically you must have the sra2gev input files already available on an iRODs server.  These files include a directory named **reference** with a prepared reference genome, the **SRA_IDs.txt** file containing the the list of SRA IDs that should be used by the workflow, and a **basename.txt** file that contains the basename used to name all of the files in the reference folder.  These files must be stored in a directory whose name serves as the experiment ID.  Here is a sample directory containing the necessary files on an iRODs server:
+
+```
+/scidasZone/sysbio/experiments/sra2gev/test:
+  basename.txt
+  SRA_IDs.txt
+  C- /scidasZone/sysbio/experiments/sra2gev/test/reference
+/scidasZone/sysbio/experiments/sra2gev/test/reference:
+  Oryza_sativa-IRGSP-1.1.ht2
+  Oryza_sativa-IRGSP-1.2.ht2
+  Oryza_sativa-IRGSP-1.3.ht2
+  Oryza_sativa-IRGSP-1.4.ht2
+  Oryza_sativa-IRGSP-1.5.ht2
+  Oryza_sativa-IRGSP-1.6.ht2
+  Oryza_sativa-IRGSP-1.7.ht2
+  Oryza_sativa-IRGSP-1.8.ht2
+  Oryza_sativa-IRGSP-1.fa
+  Oryza_sativa-IRGSP-1.gff3
+  Oryza_sativa-IRGSP-1.gtf
+  Oryza_sativa-IRGSP-1.Splice_sites.txt
+```
+
+To execute the workflow use the following command:
 
 ```bash
 docker run -it -e IRODS_HOST="{irods_host}" -e IRODS_PORT={irods_port} -e IRODS_USER_NAME="{irods_user}" -e IRODS_ZONE_NAME="{irods_zone}" -e EXP_PATH="{exp_path}" sra2gev-docker
