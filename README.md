@@ -62,6 +62,15 @@ To execute the **sra2gev** workflow automatically you must have the sra2gev inpu
   Oryza_sativa-IRGSP-1.gtf
   Oryza_sativa-IRGSP-1.Splice_sites.txt
 ```
+In the example files above the contents of the **basename.txt** file would be the text:  **Oryza_sativa-IRGSP-1**.  The SRA_IDs.txt file should contain the list of SRAs each on a separate file, for example:
+
+```
+SRR2931286
+SRR2931270
+SRR2931473
+SRR2931500
+SRR2931514
+```
 
 To execute the workflow use the following command:
 
