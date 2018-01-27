@@ -14,7 +14,7 @@ docker pull systemsgenetics/sra2gev-docker
 To build the image, first clone it then build the image with this command
 
 ```bash
-cd sra2gev=docker
+cd sra2gev-docker
 docker build -t sra2gev-docker .
 ```
 
