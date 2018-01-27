@@ -10,8 +10,8 @@ echo "}" >> ~/.irods/irods_environment.json
 iinit
 
 # Move the files from iRODs for execution
-cd SRA2GEV
-icd /scidasZone/sysbio/experiments/SRA2GEV/$EXPID
+cd sra2gev
+icd $EXP_PATH
 echo "Copying SRA_IDs.txt..."
 iget SRA_IDs.txt .
 echo "Copying basename.txt..."
@@ -19,6 +19,7 @@ iget basename.txt .
 
 # Adjust the nextflow config file
 echo "Adjusting the nextflow.config file..."
+mv nextflow.config.example nextflow.config
 perl -pi -e 's/.\/examples\/SRA_IDs.txt/.\/SRA_IDs.txt/' nextflow.config
 perl -pi -e 's/examples\/reference/reference/' nextflow.config
 export BASENAME=`cat basename.txt`
@@ -31,4 +32,4 @@ iget -r reference .
 # Run the workflow
 source ~/.bashrc
 module add trimmomatic
-nextflow run SRA2GEV.nf -profile standard
+nextflow run sra2gev.nf -profile standard
