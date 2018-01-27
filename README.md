@@ -41,7 +41,7 @@ docker run -u 0 -it sra2gev-docker /bin/bash
 ```
 
 ## Run the Container Automatically with iRODs
-To execute the **sra2gev** workflow automatically you must have the sra2gev input files already available on an iRODs server.  These files include a directory named **reference** with a prepared reference genome, the **SRA_IDs.txt** file containing the the list of SRA IDs that should be used by the workflow, and a **basename.txt** file that contains the basename used to name all of the files in the reference folder.  These files must be stored in a directory whose name serves as the experiment ID.  Here is a sample directory containing the necessary files on an iRODs server:
+To execute the **sra2gev** workflow automatically you must have the sra2gev input files already available on an iRODs server.  These files include a directory named **reference** with a prepared reference genome, the **SRA_IDs.txt** file containing the the list of SRA IDs that should be used by the workflow, and a **basename.txt** file that contains the basename used to name all of the files in the reference folder. Here is a sample directory listing as produced by the **ils** command, containing the necessary files on an iRODs server:
 
 ```
 /scidasZone/sysbio/experiments/sra2gev/test:
