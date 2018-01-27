@@ -11,9 +11,10 @@ docker pull systemsgenetics/sra2gev-docker
 ```
 
 ## Build the Docker Image
-To build the image, first clone it and then inside of the project directory build the image with this command
+To build the image, first clone it then build the image with this command
 
 ```bash
+cd sra2gev=docker
 docker build -t sra2gev-docker .
 ```
 
