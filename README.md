@@ -16,6 +16,21 @@ To execute the **sra2gev** workflow manually by providing your own input files y
 ```bash
 docker run -it sra2gev-docker /bin/bash
 ```
+This will log you into the image as the **bioinfo** user and you will find the **sra2gev** directory. Enter the **sra2gev** directory to configure the workflow as desired.  It is setup, by default, to run using the local scheduler.
+
+If you would like to use iRODs in this interactive session you can setup iRODs by running this command:
+
+```bash
+iinit
+```
+And follow the command-line prompts to configure the iRODs client.
+
+## Log in to the Container as Root
+To login as root run this command:
+
+```bash
+docker run -u 0 -it sra2gev-docker /bin/bash
+```
 
 ## Run the Container Automatically with iRODs
 To execute the **sra2gev** workflow automatically you must have the sra2gev input files already available on an iRODs server.  These files include a directory named **refrence** with a prepared reference genome, the **SRA_IDs.txt** file containing the the list of SRA IDs that should be used by the workflow, and a **basename.txt** file that contains the basename used to name all of the files in the reference folder.  These files must be stored in a directory whose name serves as the experiment ID.  To execute the workflow use the following command:
